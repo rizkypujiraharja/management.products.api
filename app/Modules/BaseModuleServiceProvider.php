@@ -55,9 +55,11 @@ abstract class BaseModuleServiceProvider extends EventServiceProvider
     {
         try {
             $module = Module::firstOrCreate([
-                'service_provider_class' => get_called_class(),
+                'service_provider_class' => get_called_class()
             ], [
                 'enabled' => $this->autoEnable,
+                'name' => $this->module_name,
+                'description' => $this->module_description
             ]);
 
             return $module->enabled;

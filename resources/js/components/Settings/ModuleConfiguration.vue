@@ -9,13 +9,15 @@
                 </div>
             </div>
             <div class="card-body">
+
                 <table class="table">
                     <tbody>
                         <tr v-for="module in modules" :key="module.id">
                             <td>
-                                <div>{{ module.service_provider_class }}</div>
+                                <div><strong>{{ module.name }}</strong></div>
+                                <div>{{ module.description }}</div>
                             </td>
-                            <td class="text-right">
+                            <td class="text-right align-middle">
                                 <div class="custom-control custom-switch">
                                     <input type="checkbox" @change="updateModuleStatus(module.id)" class="custom-control-input" :id="module.id" v-model="module.enabled">
                                     <label class="custom-control-label" :for="module.id"></label>

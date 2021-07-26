@@ -29,6 +29,8 @@ use Illuminate\Support\Carbon;
 class Module extends Model
 {
     protected $fillable = [
+        'name',
+        'description',
         'service_provider_class',
         'enabled',
     ];
