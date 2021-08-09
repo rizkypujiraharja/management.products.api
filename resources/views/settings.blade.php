@@ -73,16 +73,6 @@
                     </div>
                 </a>
 
-                <a href="{{ route('settings.printnode') }}" class="setting-list">
-                    <div class="setting-icon">
-                        <font-awesome-icon icon="print" class="fa-sm"></font-awesome-icon>
-                    </div>
-                    <div class="setting-body">
-                        <div class="setting-title">PrintNode</div>
-                        <div class="setting-desc">View and update PrintNode integration  settings</div>
-                    </div>
-                </a>
-
                 <a href="{{ route('settings.rmsapi') }}" class="setting-list">
                     <div class="setting-icon">
                         <font-awesome-icon icon="code" class="fa-sm"></font-awesome-icon>
