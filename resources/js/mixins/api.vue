@@ -360,6 +360,9 @@ export default {
             apiGetHeartbeats: function () {
                 return axios.get('/api/heartbeats/');
             },
+
+            apiGetReservationWarehouse: function () { return axios.get('/api/modules/reservation-warehouse') },
+            apiSaveReservationWarehouse: function (params) { return axios.post('/api/modules/reservation-warehouse', params) },
         }
     }
 </script>

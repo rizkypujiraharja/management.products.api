@@ -38,6 +38,8 @@ Route::prefix('settings')->group(function () {
     Route::get('modules/webhooks/subscriptions', [
         Admin\Settings\Modules\Webhooks\SubscriptionController::class, 'index'])
             ->name('webhooks::subscriptions');
+    Route::view('modules/reservation-warehouse', 'settings/reservation-warehouse')
+        ->name('settings.modules.reservation-warehouse');
 });
 
 Route::prefix('tools')->group(function () {
