@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Warehouse;
 use App\Modules\InventoryReservations\src\EventServiceProviderBase;
 use App\Modules\InventoryReservations\src\Jobs\RecalculateQuantityReservedJob;
+use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
 use App\User;
 use Tests\TestCase;
 
@@ -23,10 +24,6 @@ class RecalculateQuantityReservedJobTest extends TestCase
         $this->actingAs($admin, 'api');
 
         EventServiceProviderBase::enableModule();
-
-        if (Warehouse::whereCode('999')->doesntExist()) {
-            Warehouse::factory()->create(['code' => '999']);
-        }
     }
 
     /** @test */
@@ -71,11 +68,13 @@ class RecalculateQuantityReservedJobTest extends TestCase
     {
         Product::factory()->create();
 
-        Inventory::query()->where(['warehouse_code' => '999'])->update(['quantity_reserved' => 4]);
+        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+
+        Inventory::query()->where(['warehouse_id' => $reservationWarehouseId])->update(['quantity_reserved' => 4]);
 
         RecalculateQuantityReservedJob::dispatchNow();
 
-        $this->assertDatabaseHas('inventory', ['warehouse_code' => '999', 'quantity_reserved' => 0]);
+        $this->assertDatabaseHas('inventory', ['warehouse_id' => $reservationWarehouseId, 'quantity_reserved' => 0]);
         $this->assertDatabaseHas('products', ['quantity_reserved' => 0]);
     }
 }

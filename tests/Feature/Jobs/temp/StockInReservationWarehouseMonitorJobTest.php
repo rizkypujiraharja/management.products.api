@@ -6,11 +6,13 @@ use App\Events\HourlyEvent;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Warehouse;
+use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
 use App\Modules\Maintenance\src\EventServiceProviderBase;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class StockInWarehouse999MonitorJobTest extends TestCase
+class StockInReservationWarehouseMonitorJobTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -22,8 +24,9 @@ class StockInWarehouse999MonitorJobTest extends TestCase
     public function testExample()
     {
         EventServiceProviderBase::enableModule();
+        InventoryReservationsEventServiceProviderBase::enableModule();
 
-        Warehouse::firstOrCreate(['code' => '999']);
+        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
 
         /** @var Product $product */
         $product = Product::factory()->create();
@@ -35,7 +38,7 @@ class StockInWarehouse999MonitorJobTest extends TestCase
 
         $this->assertNotTrue(
             Inventory::query()
-                ->where(['warehouse_code' => '999'])
+                ->where(['warehouse_id' => $reservationWarehouseId])
                 ->where('quantity', '>', 0)
                 ->exists()
         );

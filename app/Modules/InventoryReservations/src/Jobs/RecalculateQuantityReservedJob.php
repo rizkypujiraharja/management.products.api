@@ -5,6 +5,7 @@ namespace App\Modules\InventoryReservations\src\Jobs;
 use App\Helpers\TemporaryTable;
 use App\Models\Inventory;
 use App\Models\OrderProduct;
+use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Builder;
@@ -69,6 +70,8 @@ class RecalculateQuantityReservedJob implements ShouldQueue
      */
     private function incorrectInventoryRecordsQuery()
     {
+        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+
         return Inventory::query()
             ->with('product')
             ->select([
@@ -76,7 +79,7 @@ class RecalculateQuantityReservedJob implements ShouldQueue
                 DB::raw('IFNULL(temp_table_totals.quantity_to_ship_sum, 0) as quantity_to_ship_sum'),
             ])
             ->leftJoin('temp_table_totals', 'inventory.product_id', '=', 'temp_table_totals.product_id')
-            ->where('inventory.warehouse_code', '=', '999')
+            ->where('inventory.warehouse_id', '=', $reservationWarehouseId)
             ->whereRaw('inventory.quantity_reserved != IFNULL(temp_table_totals.quantity_to_ship_sum, 0)');
     }
 }
