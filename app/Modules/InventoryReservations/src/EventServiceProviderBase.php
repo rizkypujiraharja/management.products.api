@@ -71,8 +71,7 @@ class EventServiceProviderBase extends BaseModuleServiceProvider
 
         $warehouse = Warehouse::firstOrCreate(['code' => '999'], ['name' => '999']);
 
-        $reservationWarehouse = ReservationWarehouse::exists();
-        if (! $reservationWarehouse) {
+        if (ReservationWarehouse::doesntExist()) {
             ReservationWarehouse::create([
                 'warehouse_id' => $warehouse->id,
             ]);
