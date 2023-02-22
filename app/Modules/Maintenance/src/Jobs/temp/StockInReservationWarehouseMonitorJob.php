@@ -3,6 +3,7 @@
 namespace App\Modules\Maintenance\src\Jobs\temp;
 
 use App\Models\Inventory;
+use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -10,7 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class StockInWarehouse999MonitorJob implements ShouldQueue
+class StockInReservationWarehouseMonitorJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -32,8 +33,10 @@ class StockInWarehouse999MonitorJob implements ShouldQueue
      */
     public function handle()
     {
+        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+
         Inventory::query()
-            ->where(['warehouse_code' => '999'])
+            ->where(['warehouse_id' => $reservationWarehouseId])
             ->where('quantity', '>', '0')
             ->get()->each(function (Inventory $inventory) {
                 $inventory->update(['quantity' => 0]);
