@@ -12,17 +12,17 @@ class InventoryReservationController extends Controller
 {
     public function index(InventoryReservationIndexRequest $request)
     {
-        $reservationWarehouse = Configuration::first();
+        $inventoryReservation = Configuration::first();
 
-        return new InventoryReservationResource($reservationWarehouse);
+        return new InventoryReservationResource($inventoryReservation);
     }
 
     public function store(InventoryReservationStoreRequest $request)
     {
-        $reservationWarehouse = Configuration::first();
+        $inventoryReservation = Configuration::first();
 
-        $reservationWarehouse->update($request->validated());
+        $inventoryReservation->update($request->validated());
 
-        return new InventoryReservationResource($reservationWarehouse);
+        return new InventoryReservationResource($inventoryReservation);
     }
 }
