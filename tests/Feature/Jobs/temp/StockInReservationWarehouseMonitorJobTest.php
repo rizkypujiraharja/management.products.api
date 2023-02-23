@@ -26,7 +26,7 @@ class StockInReservationWarehouseMonitorJobTest extends TestCase
         EventServiceProviderBase::enableModule();
         InventoryReservationsEventServiceProviderBase::enableModule();
 
-        $reservationWarehouseId = Configuration::first()->warehouse_id;
+        $inventoryReservationWarehouseIdId = Configuration::first()->warehouse_id;
 
         /** @var Product $product */
         $product = Product::factory()->create();
@@ -38,7 +38,7 @@ class StockInReservationWarehouseMonitorJobTest extends TestCase
 
         $this->assertNotTrue(
             Inventory::query()
-                ->where(['warehouse_id' => $reservationWarehouseId])
+                ->where(['warehouse_id' => $inventoryReservationWarehouseIdId])
                 ->where('quantity', '>', 0)
                 ->exists()
         );
