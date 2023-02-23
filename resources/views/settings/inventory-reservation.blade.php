@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-12">
-            <reservation-warehouse></reservation-warehouse>
+            <inventory-reservation></inventory-reservation>
         </div>
     </div>
 </div>

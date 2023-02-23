@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\OrderAddress;
 use App\Models\OrderProduct;
 use App\Modules\Api2cart\src\Jobs\ImportShippingAddressJob;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -234,7 +234,7 @@ class OrderService
             return true;
         }
 
-        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+        $reservationWarehouseId = Configuration::first()->warehouse_id;
         $query = Inventory::where('product_id', $product_id)
             ->where('warehouse_id', '!=', $reservationWarehouseId);
 

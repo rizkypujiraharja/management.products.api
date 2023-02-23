@@ -3,7 +3,7 @@
 namespace App\Modules\Maintenance\src\Jobs\temp;
 
 use App\Models\Inventory;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -33,7 +33,7 @@ class StockInReservationWarehouseMonitorJob implements ShouldQueue
      */
     public function handle()
     {
-        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+        $reservationWarehouseId = Configuration::first()->warehouse_id;
 
         Inventory::query()
             ->where(['warehouse_id' => $reservationWarehouseId])

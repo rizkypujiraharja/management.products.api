@@ -4,7 +4,7 @@ namespace App\Modules\InventoryReservations\src\Jobs;
 
 use App\Models\Inventory;
 use App\Models\OrderProduct;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -38,7 +38,7 @@ class UpdateInventoryQuantityReservedJob implements ShouldQueue
             })
             ->sum('quantity_to_ship');
 
-        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+        $reservationWarehouseId = Configuration::first()->warehouse_id;
 
         Inventory::query()
             ->where(['product_id' => $this->product_id])
