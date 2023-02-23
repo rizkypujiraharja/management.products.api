@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\Api\Modules\ReservationWarehouse\ReservationWarehouseController;
+namespace Tests\Feature\Http\Controllers\Api\Modules\InventoryReservation\InventoryReservationController;
 
 use App\Models\Warehouse;
 use App\User;
@@ -23,7 +23,7 @@ class StoreTest extends TestCase
             'warehouse_id' => $warehouse->id,
         ];
 
-        $response = $this->actingAs($user, 'api')->post(route('api.modules.reservation-warehouse.store'), $params);
+        $response = $this->actingAs($user, 'api')->post(route('api.modules.inventory-reservation.store'), $params);
 
         $response->assertStatus(200);
     }

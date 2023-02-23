@@ -9,14 +9,14 @@ use Tests\TestCase;
 /**
  *
  */
-class Reservation_warehouseTest extends TestCase
+class Inventory_reservationTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
      * @var string
      */
-    protected string $uri = '/admin/settings/modules/reservation-warehouse';
+    protected string $uri = '/admin/settings/modules/inventory-reservation';
 
     protected mixed $user;
 

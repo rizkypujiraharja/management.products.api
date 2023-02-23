@@ -22,7 +22,7 @@ use App\Modules\Automations\src\Models\Action;
 use App\Modules\Automations\src\Models\Automation;
 use App\Modules\Automations\src\Models\Condition;
 use App\Modules\DpdIreland\src\Models\DpdIreland;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use App\Modules\MagentoApi\src\Models\MagentoConnection;
 use App\Modules\MagentoApi\src\Models\MagentoProduct;
 use App\Modules\PrintNode\src\Models\Client;
@@ -49,7 +49,7 @@ trait ResetsDatabase
         OrderProduct::query()->forceDelete();
         Order::query()->forceDelete();
         OrderStatus::query()->forceDelete();
-        ReservationWarehouse::query()->forceDelete();
+        Configuration::query()->forceDelete();
         Warehouse::query()->forceDelete();
         Tag::query()->forceDelete();
         OrderProductTotal::query()->forceDelete();

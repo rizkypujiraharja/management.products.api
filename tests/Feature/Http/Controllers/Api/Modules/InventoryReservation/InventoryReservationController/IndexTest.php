@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Http\Controllers\Api\Modules\ReservationWarehouse\ReservationWarehouseController;
+namespace Tests\Feature\Http\Controllers\Api\Modules\InventoryReservation\InventoryReservationController;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,7 +17,7 @@ class IndexTest extends TestCase
         $user = User::factory()->create();
         $user->assignRole('admin');
 
-        $response = $this->actingAs($user, 'api')->getJson(route('api.modules.reservation-warehouse.index'));
+        $response = $this->actingAs($user, 'api')->getJson(route('api.modules.inventory-reservation.index'));
 
         $response->assertOk();
         $response->assertJsonStructure([

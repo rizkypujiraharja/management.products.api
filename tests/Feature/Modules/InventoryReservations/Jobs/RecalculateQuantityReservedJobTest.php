@@ -8,7 +8,7 @@ use App\Models\Product;
 use App\Models\Warehouse;
 use App\Modules\InventoryReservations\src\EventServiceProviderBase;
 use App\Modules\InventoryReservations\src\Jobs\RecalculateQuantityReservedJob;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use App\User;
 use Tests\TestCase;
 
@@ -68,7 +68,7 @@ class RecalculateQuantityReservedJobTest extends TestCase
     {
         Product::factory()->create();
 
-        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+        $reservationWarehouseId = Configuration::first()->warehouse_id;
 
         Inventory::query()->where(['warehouse_id' => $reservationWarehouseId])->update(['quantity_reserved' => 4]);
 

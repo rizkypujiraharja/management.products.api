@@ -7,7 +7,7 @@ use App\Models\OrderProduct;
 use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Modules\InventoryReservations\src\EventServiceProviderBase;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -39,7 +39,7 @@ class BasicModuleTest extends TestCase
             'product_id' => $product->getKey()
         ]);
 
-        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+        $reservationWarehouseId = Configuration::first()->warehouse_id;
         $this->assertEquals(
             $orderProduct->quantity_to_ship,
             $orderProduct->product->inventory()
