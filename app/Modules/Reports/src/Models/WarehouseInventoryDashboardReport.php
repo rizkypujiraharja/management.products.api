@@ -3,6 +3,7 @@
 namespace App\Modules\Reports\src\Models;
 
 use App\Models\Inventory;
+use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
 use App\Traits\LogsActivityTrait;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -39,6 +40,7 @@ class WarehouseInventoryDashboardReport extends Report
                 'END)'),
         ];
 
+        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
         $this->baseQuery = Inventory::query()
             ->leftJoin('inventory as inventory_source', function ($join) {
                 $join->on('inventory_source.product_id', '=', 'inventory.product_id');
@@ -46,7 +48,8 @@ class WarehouseInventoryDashboardReport extends Report
             ->leftJoin('products as product', 'inventory.product_id', '=', 'product.id')
             ->where('inventory_source.warehouse_code', '=', '99')
             ->where('inventory_source.quantity_available', '>', 0)
-            ->whereNotIn('inventory.warehouse_code', ['99','999','100'])
+            ->whereNotIn('inventory.warehouse_code', ['99', '100'])
+            ->where('inventory.warehouse_id', '!=', $reservationWarehouseId)
             ->groupBy('inventory.warehouse_code', 'inventory.warehouse_id');
 
         $this->setPerPage(100);
