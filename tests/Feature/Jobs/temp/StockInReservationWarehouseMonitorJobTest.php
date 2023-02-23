@@ -6,7 +6,7 @@ use App\Events\HourlyEvent;
 use App\Models\Inventory;
 use App\Models\Product;
 use App\Models\Warehouse;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use App\Modules\Maintenance\src\EventServiceProviderBase;
 use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,7 +26,7 @@ class StockInReservationWarehouseMonitorJobTest extends TestCase
         EventServiceProviderBase::enableModule();
         InventoryReservationsEventServiceProviderBase::enableModule();
 
-        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+        $reservationWarehouseId = Configuration::first()->warehouse_id;
 
         /** @var Product $product */
         $product = Product::factory()->create();

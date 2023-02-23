@@ -9,7 +9,7 @@ use App\Events\OrderProduct\OrderProductCreatedEvent;
 use App\Events\OrderProduct\OrderProductUpdatedEvent;
 use App\Models\Warehouse;
 use App\Modules\BaseModuleServiceProvider;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 
 /**
  * Class EventServiceProviderBase.
@@ -29,7 +29,7 @@ class EventServiceProviderBase extends BaseModuleServiceProvider
     /**
      * @var string
      */
-    public static string $settings_link = '/admin/settings/modules/reservation-warehouse';
+    public static string $settings_link = '/admin/settings/modules/inventory-reservation';
 
     /**
      * @var bool
@@ -71,8 +71,8 @@ class EventServiceProviderBase extends BaseModuleServiceProvider
 
         $warehouse = Warehouse::firstOrCreate(['code' => '999'], ['name' => '999']);
 
-        if (ReservationWarehouse::doesntExist()) {
-            ReservationWarehouse::create([
+        if (Configuration::doesntExist()) {
+            Configuration::create([
                 'warehouse_id' => $warehouse->id,
             ]);
         }

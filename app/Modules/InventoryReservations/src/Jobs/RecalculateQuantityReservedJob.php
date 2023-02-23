@@ -5,7 +5,7 @@ namespace App\Modules\InventoryReservations\src\Jobs;
 use App\Helpers\TemporaryTable;
 use App\Models\Inventory;
 use App\Models\OrderProduct;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Database\Eloquent\Builder;
@@ -70,7 +70,7 @@ class RecalculateQuantityReservedJob implements ShouldQueue
      */
     private function incorrectInventoryRecordsQuery()
     {
-        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+        $reservationWarehouseId = Configuration::first()->warehouse_id;
 
         return Inventory::query()
             ->with('product')

@@ -3,7 +3,7 @@
 namespace App\Modules\Reports\src\Models;
 
 use App\Models\Inventory;
-use App\Modules\InventoryReservations\src\Models\ReservationWarehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use App\Traits\LogsActivityTrait;
 use Illuminate\Support\Facades\DB;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -40,7 +40,7 @@ class WarehouseInventoryDashboardReport extends Report
                 'END)'),
         ];
 
-        $reservationWarehouseId = ReservationWarehouse::first()->warehouse_id;
+        $reservationWarehouseId = Configuration::first()->warehouse_id;
         $this->baseQuery = Inventory::query()
             ->leftJoin('inventory as inventory_source', function ($join) {
                 $join->on('inventory_source.product_id', '=', 'inventory.product_id');
