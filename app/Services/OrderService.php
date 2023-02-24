@@ -234,9 +234,9 @@ class OrderService
             return true;
         }
 
-        $inventoryReservationWarehouseIdId = Configuration::first()->warehouse_id;
+        $inventoryReservationWarehouseId = Configuration::first()->warehouse_id;
         $query = Inventory::where('product_id', $product_id)
-            ->where('warehouse_id', '!=', $inventoryReservationWarehouseIdId);
+            ->where('warehouse_id', '!=', $inventoryReservationWarehouseId);
 
         if ($sourceLocationId) {
             $query->where('warehouse_code', $sourceLocationId);
