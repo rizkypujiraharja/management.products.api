@@ -68,13 +68,13 @@ class RecalculateQuantityReservedJobTest extends TestCase
     {
         Product::factory()->create();
 
-        $inventoryReservationWarehouseIdId = Configuration::first()->warehouse_id;
+        $inventoryReservationWarehouseId = Configuration::first()->warehouse_id;
 
-        Inventory::query()->where(['warehouse_id' => $inventoryReservationWarehouseIdId])->update(['quantity_reserved' => 4]);
+        Inventory::query()->where(['warehouse_id' => $inventoryReservationWarehouseId])->update(['quantity_reserved' => 4]);
 
         RecalculateQuantityReservedJob::dispatchNow();
 
-        $this->assertDatabaseHas('inventory', ['warehouse_id' => $inventoryReservationWarehouseIdId, 'quantity_reserved' => 0]);
+        $this->assertDatabaseHas('inventory', ['warehouse_id' => $inventoryReservationWarehouseId, 'quantity_reserved' => 0]);
         $this->assertDatabaseHas('products', ['quantity_reserved' => 0]);
     }
 }
