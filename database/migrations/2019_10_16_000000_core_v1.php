@@ -1133,16 +1133,6 @@ class CoreV1 extends Migration
 
             group by modules_magento2api_products.id
         ");
-
-        Schema::create('modules_inventory_reservations_configurations', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('warehouse_id');
-            $table->timestamps();
-
-            $table->foreign('warehouse_id', 'modules_inventory_reservations_warehouse_id_foreign')
-                ->references('id')->on('warehouses');
-            $table->index('warehouse_id', 'modules_inventory_reservations_warehouse_id_index');
-        });
     }
 
     private function installSpatiePermissions(): void
