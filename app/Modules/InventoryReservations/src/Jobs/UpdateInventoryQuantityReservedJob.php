@@ -38,11 +38,11 @@ class UpdateInventoryQuantityReservedJob implements ShouldQueue
             })
             ->sum('quantity_to_ship');
 
-        $inventoryReservationWarehouseId = Configuration::first()->warehouse_id;
+        $inventoryReservationsWarehouseId = Configuration::first()->warehouse_id;
 
         Inventory::query()
             ->where(['product_id' => $this->product_id])
-            ->where(['warehouse_id' => $inventoryReservationWarehouseId])
+            ->where(['warehouse_id' => $inventoryReservationsWarehouseId])
             ->where('quantity_reserved', '!=', $newQuantityReserved)
             ->get()
             ->each(function (Inventory $inventory) use ($newQuantityReserved) {

@@ -70,7 +70,7 @@ class RecalculateQuantityReservedJob implements ShouldQueue
      */
     private function incorrectInventoryRecordsQuery()
     {
-        $inventoryReservationWarehouseId = Configuration::first()->warehouse_id;
+        $inventoryReservationsWarehouseId = Configuration::first()->warehouse_id;
 
         return Inventory::query()
             ->with('product')
@@ -79,7 +79,7 @@ class RecalculateQuantityReservedJob implements ShouldQueue
                 DB::raw('IFNULL(temp_table_totals.quantity_to_ship_sum, 0) as quantity_to_ship_sum'),
             ])
             ->leftJoin('temp_table_totals', 'inventory.product_id', '=', 'temp_table_totals.product_id')
-            ->where('inventory.warehouse_id', '=', $inventoryReservationWarehouseId)
+            ->where('inventory.warehouse_id', '=', $inventoryReservationsWarehouseId)
             ->whereRaw('inventory.quantity_reserved != IFNULL(temp_table_totals.quantity_to_ship_sum, 0)');
     }
 }

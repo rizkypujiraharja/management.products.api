@@ -39,11 +39,11 @@ class BasicModuleTest extends TestCase
             'product_id' => $product->getKey()
         ]);
 
-        $inventoryReservationWarehouseId = Configuration::first()->warehouse_id;
+        $inventoryReservationsWarehouseId = Configuration::first()->warehouse_id;
         $this->assertEquals(
             $orderProduct->quantity_to_ship,
             $orderProduct->product->inventory()
-                ->where(['warehouse_id' => $inventoryReservationWarehouseId])
+                ->where(['warehouse_id' => $inventoryReservationsWarehouseId])
                 ->first()->quantity_reserved
         );
 
@@ -53,7 +53,7 @@ class BasicModuleTest extends TestCase
         $this->assertEquals(
             $orderProduct->quantity_to_ship,
             $orderProduct->product->inventory()
-                ->where(['warehouse_id' => $inventoryReservationWarehouseId])
+                ->where(['warehouse_id' => $inventoryReservationsWarehouseId])
                 ->first()->quantity_reserved
         );
     }

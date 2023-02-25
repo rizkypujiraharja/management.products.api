@@ -33,10 +33,10 @@ class StockInReservationWarehouseMonitorJob implements ShouldQueue
      */
     public function handle()
     {
-        $inventoryReservationWarehouseId = Configuration::first()->warehouse_id;
+        $inventoryReservationsWarehouseId = Configuration::first()->warehouse_id;
 
         Inventory::query()
-            ->where(['warehouse_id' => $inventoryReservationWarehouseId])
+            ->where(['warehouse_id' => $inventoryReservationsWarehouseId])
             ->where('quantity', '>', '0')
             ->get()->each(function (Inventory $inventory) {
                 $inventory->update(['quantity' => 0]);
