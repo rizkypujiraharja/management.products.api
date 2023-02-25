@@ -71,3 +71,12 @@ Route::get('csv/order_shipments', [Csv\PartialOrderShipmentController::class, 'i
 Route::get('csv/products/picked', [Csv\ProductsPickedInWarehouse::class, 'index'])->name('warehouse_picks.csv');
 Route::get('csv/products/shipped', [Csv\ProductsShippedFromWarehouseController::class, 'index'])->name('warehouse_shipped.csv');
 Route::get('csv/boxtop/stock', [Csv\BoxTopStockController::class, 'index'])->name('boxtop-warehouse-stock.csv');
+
+
+// Admin Routes
+Route::prefix('admin')->middleware(['web', 'auth', 'role:admin', 'twofactor'])->group(function () {
+    // Settings
+    Route::prefix('settings')->group(function () {
+        Route::view('modules/inventory-reservations', 'settings/inventory-reservations')->name('settings.modules.inventory-reservations');
+    });
+});

@@ -29,7 +29,7 @@ class EventServiceProviderBase extends BaseModuleServiceProvider
     /**
      * @var string
      */
-    public static string $settings_link = '/admin/settings/modules/inventory-reservation';
+    public static string $settings_link = '/admin/settings/modules/inventory-reservations';
 
     /**
      * @var bool
