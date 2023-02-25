@@ -40,7 +40,7 @@ class WarehouseInventoryDashboardReport extends Report
                 'END)'),
         ];
 
-        $inventoryReservationWarehouseId = Configuration::first()->warehouse_id;
+        $inventoryReservationsWarehouseId = Configuration::first()->warehouse_id;
         $this->baseQuery = Inventory::query()
             ->leftJoin('inventory as inventory_source', function ($join) {
                 $join->on('inventory_source.product_id', '=', 'inventory.product_id');
@@ -49,7 +49,7 @@ class WarehouseInventoryDashboardReport extends Report
             ->where('inventory_source.warehouse_code', '=', '99')
             ->where('inventory_source.quantity_available', '>', 0)
             ->whereNotIn('inventory.warehouse_code', ['99', '100'])
-            ->where('inventory.warehouse_id', '!=', $inventoryReservationWarehouseId)
+            ->where('inventory.warehouse_id', '!=', $inventoryReservationsWarehouseId)
             ->groupBy('inventory.warehouse_code', 'inventory.warehouse_id');
 
         $this->setPerPage(100);
