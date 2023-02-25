@@ -361,8 +361,8 @@ export default {
                 return axios.get('/api/heartbeats/');
             },
 
-            apiGetReservationWarehouse: function () { return axios.get('/api/modules/inventory-reservation') },
-            apiSaveReservationWarehouse: function (params) { return axios.post('/api/modules/inventory-reservation', params) },
+            apiGetInventoryReservationsConfig: function () { return axios.get('/api/modules/inventory-reservations/') },
+            apiUpdateInventoryReservationsConfig: function (id, params) { return axios.put('/api/modules/inventory-reservations/' + id, params) },
         }
     }
 </script>

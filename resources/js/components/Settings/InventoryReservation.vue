@@ -17,7 +17,7 @@
                             <label for="create-warehouse_id" class="col-sm-3 col-form-label">Warehouse</label>
                             <div class="col-sm-9">
                                 <ValidationProvider vid="warehouse_id" name="warehouse_id" v-slot="{ errors }">
-                                    <select v-model="warehouseId" :class="{
+                                    <select v-model="configuration.warehouse_id" :class="{
                                             'form-control': true,
                                             'is-invalid': errors.length > 0,
                                         }"
@@ -65,7 +65,7 @@ export default {
 
     data: () => ({
         warehouses: [],
-        warehouseId: null
+        configuration: {}
     }),
 
     methods: {
@@ -83,9 +83,9 @@ export default {
         },
 
         loadReservationWarehouse() {
-            this.apiGetReservationWarehouse()
+            this.apiGetInventoryReservationsConfig()
                 .then(({ data }) => {
-                    this.warehouseId = data.data.warehouse_id;
+                    this.configuration = data.data;
                 })
                 .catch(e => {
                     this.displayApiCallError(e);
@@ -95,9 +95,9 @@ export default {
         submit() {
             this.showLoading();
             let data = {
-                warehouse_id: this.warehouseId
+                warehouse_id: this.configuration.warehouse_id
             };
-            this.apiSaveReservationWarehouse(data)
+            this.apiUpdateInventoryReservationsConfig(this.configuration.id, data)
                 .then(({ data }) => {
                     this.notifySuccess('Reservation warehouse updated');
                 })

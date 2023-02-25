@@ -17,10 +17,8 @@ class InventoryReservationController extends Controller
         return new InventoryReservationResource($inventoryReservation);
     }
 
-    public function store(InventoryReservationStoreRequest $request)
+    public function update(InventoryReservationStoreRequest $request, Configuration $inventoryReservation)
     {
-        $inventoryReservation = Configuration::first();
-
         $inventoryReservation->update($request->validated());
 
         return new InventoryReservationResource($inventoryReservation);
