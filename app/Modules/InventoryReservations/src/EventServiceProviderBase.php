@@ -24,7 +24,7 @@ class EventServiceProviderBase extends BaseModuleServiceProvider
     /**
      * @var string
      */
-    public static string $module_description = 'Reserves stock for open orders.';
+    public static string $module_description = 'Reserves stock for active orders.';
 
     /**
      * @var string
