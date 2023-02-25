@@ -3,11 +3,12 @@
 namespace Tests\Feature\Http\Controllers\Api\Modules\InventoryReservation\InventoryReservationController;
 
 use App\Models\Warehouse;
+use App\Modules\InventoryReservations\src\Models\Configuration;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class StoreTest extends TestCase
+class UpdateTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -22,8 +23,9 @@ class StoreTest extends TestCase
         $params = [
             'warehouse_id' => $warehouse->id,
         ];
+        $inventoryReservationsWarehouseId = Configuration::first()->warehouse_id;
 
-        $response = $this->actingAs($user, 'api')->post(route('api.modules.inventory-reservation.store'), $params);
+        $response = $this->actingAs($user, 'api')->put(route('api.modules.inventory-reservations.configuration.update', $inventoryReservationsWarehouseId), $params);
 
         $response->assertStatus(200);
     }
