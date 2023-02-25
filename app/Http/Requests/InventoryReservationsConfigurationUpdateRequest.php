@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class InventoryReservationStoreRequest extends FormRequest
+class InventoryReservationsConfigurationUpdateRequest extends FormRequest
 {
     public function authorize(): bool
     {
