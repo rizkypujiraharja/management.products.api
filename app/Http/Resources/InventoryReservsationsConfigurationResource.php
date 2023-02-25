@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class InventoryReservationResource extends JsonResource
+class InventoryReservsationsConfigurationResource extends JsonResource
 {
     public $preserveKeys = true;
 
