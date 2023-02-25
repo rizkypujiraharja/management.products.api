@@ -22,6 +22,7 @@ use App\Modules\Automations\src\Models\Action;
 use App\Modules\Automations\src\Models\Automation;
 use App\Modules\Automations\src\Models\Condition;
 use App\Modules\DpdIreland\src\Models\DpdIreland;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use App\Modules\InventoryReservations\src\Models\Configuration;
 use App\Modules\MagentoApi\src\Models\MagentoConnection;
 use App\Modules\MagentoApi\src\Models\MagentoProduct;
@@ -78,6 +79,9 @@ trait ResetsDatabase
         DpdIreland::query()->forceDelete();
 
         ModulesService::updateModulesTable();
+
+        // Since the InventoryReservations module is not enabled by default, we need to enable it
+        InventoryReservationsEventServiceProviderBase::enableModule();
 
         DB::table('modules_queue_monitor_jobs')->delete();
 

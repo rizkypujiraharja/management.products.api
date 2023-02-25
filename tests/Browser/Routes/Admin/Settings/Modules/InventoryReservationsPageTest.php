@@ -8,9 +8,9 @@ use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 use Throwable;
 
-class InventoryReservationPageTest extends DuskTestCase
+class InventoryReservationsPageTest extends DuskTestCase
 {
-    private string $uri = '/admin/settings/modules/inventory-reservation';
+    private string $uri = '/admin/settings/modules/inventory-reservations';
 
     public function testIncomplete()
     {
