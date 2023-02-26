@@ -2,14 +2,13 @@
 
 namespace Tests\Feature\Modules\Automations\Conditions;
 
-use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderProduct;
-use App\Models\Product;
 use App\Models\Warehouse;
 use App\Modules\Automations\src\Conditions\Order\CanFulfillFromLocationCondition;
 use App\Modules\Automations\src\Models\Automation;
 use App\Modules\Automations\src\Models\Condition;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Tests\TestCase;
 
 class CanFulfillFromLocationConditionTest extends TestCase
@@ -21,6 +20,8 @@ class CanFulfillFromLocationConditionTest extends TestCase
      */
     public function test_can_not_fulfill_from_location_0_condition()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::factory()->create();
 
@@ -57,6 +58,8 @@ class CanFulfillFromLocationConditionTest extends TestCase
      */
     public function test_can_fulfill_from_location_0_condition()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::factory()->create();
 
@@ -93,6 +96,8 @@ class CanFulfillFromLocationConditionTest extends TestCase
      */
     public function testCanNotFulfillCondition()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::factory()->create();
 
@@ -130,6 +135,8 @@ class CanFulfillFromLocationConditionTest extends TestCase
      */
     public function test_can_fulfill_valid_condition()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::factory()->create();
 

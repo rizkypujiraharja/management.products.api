@@ -9,6 +9,7 @@ use App\Models\OrderProduct;
 use App\Models\OrderStatus;
 use App\Models\Product;
 use App\Modules\AutoStatusPicking\src\AutoStatusPickingServiceProvider;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Tests\TestCase;
 
 class RefillWebPickingStatusListJobTest extends TestCase
@@ -21,6 +22,7 @@ class RefillWebPickingStatusListJobTest extends TestCase
     public function testExample()
     {
         AutoStatusPickingServiceProvider::enableModule();
+        InventoryReservationsEventServiceProviderBase::enableModule();
 
         Product::query()->forceDelete();
         OrderProduct::query()->forceDelete();

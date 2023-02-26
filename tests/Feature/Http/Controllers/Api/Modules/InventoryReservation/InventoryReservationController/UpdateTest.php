@@ -3,18 +3,18 @@
 namespace Tests\Feature\Http\Controllers\Api\Modules\InventoryReservation\InventoryReservationController;
 
 use App\Models\Warehouse;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use App\Modules\InventoryReservations\src\Models\Configuration;
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class UpdateTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
-    public function test_store_call_returns_ok()
+    public function test_update_call_returns_ok()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var User $user * */
         $user = User::factory()->create();
         $user->assignRole('admin');
@@ -23,9 +23,9 @@ class UpdateTest extends TestCase
         $params = [
             'warehouse_id' => $warehouse->id,
         ];
-        $inventoryReservationsWarehouseId = Configuration::first()->warehouse_id;
+        $inventoryReservationsConfiguration = Configuration::first();
 
-        $response = $this->actingAs($user, 'api')->put(route('api.modules.inventory-reservations.configuration.update', $inventoryReservationsWarehouseId), $params);
+        $response = $this->actingAs($user, 'api')->put(route('api.modules.inventory-reservations.configuration.update', $inventoryReservationsConfiguration), $params);
 
         $response->assertStatus(200);
     }

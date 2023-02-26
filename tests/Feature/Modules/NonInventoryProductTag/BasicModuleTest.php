@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Warehouse;
 use App\Modules\NonInventoryProductTag\src\Jobs\ClearArcadiaStockJob;
 use App\Modules\NonInventoryProductTag\src\NonInventoryProductTagServiceProvider;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use App\Services\InventoryService;
 use Tests\TestCase;
 
@@ -36,6 +37,8 @@ class BasicModuleTest extends TestCase
 
     public function test_basic()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::factory()->create();
 

@@ -10,6 +10,7 @@ use App\Modules\SystemHeartbeats\src\Listeners\DailyEventListener;
 use App\Modules\SystemHeartbeats\src\Listeners\Every10minEventListener;
 use App\Modules\SystemHeartbeats\src\Listeners\HourlyEventListener;
 use App\Modules\SystemHeartbeats\src\SystemHeartbeatsServiceProvider;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Tests\TestCase;
 
 class BasicModuleTest extends TestCase
@@ -19,6 +20,7 @@ class BasicModuleTest extends TestCase
         parent::setUp();
 
         SystemHeartbeatsServiceProvider::enableModule();
+        InventoryReservationsEventServiceProviderBase::enableModule();
 
         Heartbeat::query()->forceDelete();
     }

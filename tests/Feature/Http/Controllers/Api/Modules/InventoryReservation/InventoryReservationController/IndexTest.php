@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Api\Modules\InventoryReservation\InventoryReservationController;
 
 use App\User;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,6 +14,8 @@ class IndexTest extends TestCase
     /** @test */
     public function test_index_call_returns_ok()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var User $user * */
         $user = User::factory()->create();
         $user->assignRole('admin');

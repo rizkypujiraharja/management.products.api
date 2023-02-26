@@ -7,6 +7,7 @@ use App\Models\Inventory;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Product;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Tests\TestCase;
 
 class RecalculateProductQuantityJobTest extends TestCase
@@ -18,6 +19,8 @@ class RecalculateProductQuantityJobTest extends TestCase
      */
     public function testExample()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         Product::query()->forceDelete();
         Order::query()->forceDelete();
         OrderProduct::query()->forceDelete();
