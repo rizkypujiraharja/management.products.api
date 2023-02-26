@@ -3,6 +3,7 @@
 namespace Tests\Feature\Routes\Web\Reports;
 
 use App\User;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -26,45 +27,48 @@ class Inventory_dashboardTest extends TestCase
     /**
      *
      */
-    // protected function setUp(): void
-    // {
-    //     parent::setUp();
-    //     $this->user = User::factory()->create();
-    // }
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-    // /** @test */
-    // public function test_if_uri_set()
-    // {
-    //     $this->assertNotEmpty($this->uri);
-    // }
+        InventoryReservationsEventServiceProviderBase::enableModule();
 
-    // /** @test */
-    // public function test_guest_call()
-    // {
-    //     $response = $this->get($this->uri);
+        $this->user = User::factory()->create();
+    }
 
-    //     $response->assertRedirect('/login');
-    // }
+    /** @test */
+    public function test_if_uri_set()
+    {
+        $this->assertNotEmpty($this->uri);
+    }
 
-    // /** @test */
-    // public function test_user_call()
-    // {
-    //     $this->actingAs($this->user, 'web');
+    /** @test */
+    public function test_guest_call()
+    {
+        $response = $this->get($this->uri);
 
-    //     $response = $this->get($this->uri);
+        $response->assertRedirect('/login');
+    }
 
-    //     $response->assertSuccessful();
-    // }
+    /** @test */
+    public function test_user_call()
+    {
+        $this->actingAs($this->user, 'web');
 
-    // /** @test */
-    // public function test_admin_call()
-    // {
-    //     $this->user->assignRole('admin');
+        $response = $this->get($this->uri);
 
-    //     $this->actingAs($this->user, 'web');
+        $response->assertSuccessful();
+    }
 
-    //     $response = $this->get($this->uri);
+    /** @test */
+    public function test_admin_call()
+    {
+        $this->user->assignRole('admin');
 
-    //     $response->assertSuccessful();
-    // }
+        $this->actingAs($this->user, 'web');
+
+        $response = $this->get($this->uri);
+
+        $response->assertSuccessful();
+    }
 }
