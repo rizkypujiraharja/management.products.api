@@ -12,15 +12,16 @@ class InventoryReservationController extends Controller
 {
     public function index(InventoryReservationsConfigurationIndexRequest $request)
     {
-        $inventoryReservation = Configuration::first();
+        $configuration = Configuration::first();
 
-        return new InventoryReservsationsConfigurationResource($inventoryReservation);
+        return new InventoryReservsationsConfigurationResource($configuration);
     }
 
-    public function update(InventoryReservationsConfigurationUpdateRequest $request, Configuration $inventoryReservation)
+    public function update(InventoryReservationsConfigurationUpdateRequest $request, $id)
     {
-        $inventoryReservation->update($request->validated());
+        $configuration = Configuration::findOrFail($id);
+        $configuration->update($request->validated());
 
-        return new InventoryReservsationsConfigurationResource($inventoryReservation);
+        return new InventoryReservsationsConfigurationResource($configuration);
     }
 }
