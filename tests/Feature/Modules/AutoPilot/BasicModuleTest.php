@@ -5,7 +5,7 @@ namespace Tests\Feature\Modules\AutoPilot;
 use App\Events\HourlyEvent;
 use App\Modules\AutoPilot\src\AutoPilotServiceProvider;
 use App\Modules\AutoPilot\src\Jobs\ClearPackerIdJob;
-use App\User;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Bus;
 use Tests\TestCase;
@@ -22,6 +22,8 @@ class BasicModuleTest extends TestCase
     public function test_if_dispatches_jobs()
     {
         AutoPilotServiceProvider::enableModule();
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
 
         Bus::fake();
 

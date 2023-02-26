@@ -8,6 +8,7 @@ use App\Models\OrderProduct;
 use App\Models\OrderProductTotal;
 use App\Modules\OrderTotals\src\Jobs\EnsureAllRecordsExistsJob;
 use App\Modules\OrderTotals\src\Jobs\EnsureCorrectTotalsJob;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Illuminate\Support\Facades\Bus;
 use Tests\TestCase;
 
@@ -15,14 +16,18 @@ class EnsureCorrectTotalsJobTest extends TestCase
 {
     public function test_if_dispatches_job()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         Bus::fake(EnsureCorrectTotalsJob::class);
 
         HourlyEvent::dispatch();
 
         Bus::assertDispatched(EnsureCorrectTotalsJob::class);
     }
+
     public function test_if_updates_totals()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
         // Create Order with order product
         /** @var OrderProduct $orderProduct */
         $orderProduct = OrderProduct::factory()->create();

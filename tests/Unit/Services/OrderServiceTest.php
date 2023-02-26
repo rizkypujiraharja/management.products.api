@@ -8,6 +8,7 @@ use App\Models\OrderAddress;
 use App\Models\OrderProduct;
 use App\Models\Product;
 use App\Models\Warehouse;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use App\Services\OrderService;
 use Illuminate\Support\Facades\Event;
 use Tests\TestCase;
@@ -147,6 +148,8 @@ class OrderServiceTest extends TestCase
      */
     public function testCanFulfillMethod()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         ray()->showQueries();
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::factory()->create();
@@ -186,6 +189,8 @@ class OrderServiceTest extends TestCase
      */
     public function testCanNotFulfillMethod()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         Order::query()->forceDelete();
         Product::query()->forceDelete();
         Inventory::query()->forceDelete();
@@ -224,6 +229,8 @@ class OrderServiceTest extends TestCase
      */
     public function testFailedCanFulfill()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::factory()->create();
 
@@ -247,6 +254,8 @@ class OrderServiceTest extends TestCase
 
     public function testSuccessfulCanFulfill()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
+
         /** @var Warehouse $warehouse */
         $warehouse = Warehouse::factory()->create();
 
