@@ -3,6 +3,7 @@
 namespace Tests\Browser;
 
 use App\User;
+use App\Modules\InventoryReservations\src\EventServiceProviderBase as InventoryReservationsEventServiceProviderBase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -18,6 +19,7 @@ class InventoryDashboardPageTest extends DuskTestCase
      */
     public function testExample()
     {
+        InventoryReservationsEventServiceProviderBase::enableModule();
         $this->browse(function (Browser $browser) {
             $user = User::factory()->create();
 
