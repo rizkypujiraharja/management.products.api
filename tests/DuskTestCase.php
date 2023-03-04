@@ -72,7 +72,7 @@ abstract class DuskTestCase extends BaseTestCase
             if ($allowed) {
                 $browser->assertPathIs($uri);
             } else {
-                $browser->assertPathIs('login');
+                $browser->assertSee('403');
             }
         });
     }
