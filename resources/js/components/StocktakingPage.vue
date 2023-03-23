@@ -5,9 +5,16 @@
                 <stocktake-input @stocktakeSubmitted="reloadData"></stocktake-input>
             </div>
 
-            <button id="config-button" disabled type="button" class="btn btn-primary ml-2" data-toggle="modal" data-target="#filterConfigurationModal"><font-awesome-icon icon="cog" class="fa-lg"></font-awesome-icon></button>
+            <button v-b-modal="'configuration-modal'"  id="config-button" type="button" class="btn btn-primary ml-2"><font-awesome-icon icon="cog" class="fa-lg"></font-awesome-icon></button>
         </div>
 
+        <b-modal id="configuration-modal" no-fade hide-footer hide-header
+                 @shown="setFocusElementById(100,'stocktake-input', true, true)"
+                 @hidden="focusOnInputAndReload">
+            <stocktake-input></stocktake-input>
+            <hr>
+            <button type="button" @click.prevent="downloadStocktakeSuggestion" class="col btn mb-1 btn-primary">Download Stocktake Suggestion</button>
+        </b-modal>
 
         <template v-if="recentStocktakes.data">
             <div class="row pl-2 p-1 font-weight-bold text-uppercase small text-secondary">
@@ -35,7 +42,6 @@
 
         <div class="d-flex justify-content-between align-items-center mt-2 pl-2 p-1 font-weight-bold text-uppercase small text-secondary">
             Stocktake suggestions
-            <button class="btn btn-sm btn-primary" @click="downloadStocktakeSuggestion">Download</button>
         </div>
 
         <div v-if="(stocktakeSuggestions !== null) && (stocktakeSuggestions.length === 0)" class="text-secondary small text-center mt-3">
@@ -197,6 +203,7 @@
 
                 let routeLink = routeData.href
 
+                this.$bvModal.hide('configuration-modal');
                 window.open(routeLink, '_blank')
             }
         },
