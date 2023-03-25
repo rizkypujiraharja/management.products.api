@@ -24,8 +24,7 @@ Route::view('help', 'help');
 try {
     Auth::routes(['register' => !User::query()->exists()]);
 
-//    Route::view('start', 'setup/magento')->name('setup.magento');
-//    Route::view('start/magento', 'setup/magento')->name('setup.magento');
+    // Route::view('start/magento', 'setup/magento')->name('setup.magento');
 } catch (\Exception $exception) {
     Auth::routes(['register' => false]);
 }
