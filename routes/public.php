@@ -23,8 +23,6 @@ Route::view('help', 'help');
 // you can register only first user then he should invite others
 try {
     Auth::routes(['register' => !User::query()->exists()]);
-
-    // Route::view('start/magento', 'setup/magento')->name('setup.magento');
 } catch (\Exception $exception) {
     Auth::routes(['register' => false]);
 }
