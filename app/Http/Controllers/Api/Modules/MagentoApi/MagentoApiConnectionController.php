@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\MagentoConnectionResource;
 use App\Modules\MagentoApi\src\Http\Requests\MagentoApiConnectionDestroyRequest;
 use App\Modules\MagentoApi\src\Http\Requests\MagentoApiConnectionIndexRequest;
+use App\Modules\MagentoApi\src\Http\Requests\MagentoApiConnectionSetupRequest;
 use App\Modules\MagentoApi\src\Http\Requests\MagentoApiConnectionStoreRequest;
 use App\Modules\MagentoApi\src\Models\MagentoConnection;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -38,5 +39,14 @@ class MagentoApiConnectionController extends Controller
         $connection = MagentoConnection::findOrFail($id);
         $connection->delete();
         return response('ok');
+    }
+
+    public function setup(MagentoApiConnectionSetupRequest $request): MagentoConnectionResource
+    {
+        $config = new MagentoConnection();
+        $config->fill($request->only($config->getFillable()));
+        $config->save();
+
+        return new MagentoConnectionResource($config);
     }
 }
