@@ -19,10 +19,13 @@ use App\Http\Controllers\DataCollectorController;
 use App\Http\Controllers\PdfOrderController;
 use App\Http\Controllers\ProductsMergeController;
 use App\Http\Controllers\Reports;
+use App\Http\Controllers\SetupController;
 use App\Http\Controllers\ShippingLabelController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('verify', Auth\TwoFactorController::class)->only(['index', 'store']);
+
+Route::get('setup/magento', [SetupController::class, 'magento'])->name('setup.magento');
 
 Route::redirect('', 'dashboard');
 Route::redirect('home', 'dashboard')->name('home');
