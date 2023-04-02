@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/setup/magento?hide_nav_bar=true';
 
     /**
      * Create a new controller instance.
