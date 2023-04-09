@@ -48,6 +48,7 @@
                         </div>
 
                         <button class="btn btn-primary btn-block" type="submit">Save</button>
+                        <a class="btn btn-light btn-block" href="/dashboard">Skip</a>
                     </form>
                 </ValidationObserver>
             </div>
