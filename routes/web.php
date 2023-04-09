@@ -25,8 +25,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('verify', Auth\TwoFactorController::class)->only(['index', 'store']);
 
-Route::get('setup/magento', [SetupController::class, 'magento'])->name('setup.magento');
-
 Route::redirect('', 'dashboard');
 Route::redirect('home', 'dashboard')->name('home');
 
@@ -72,11 +70,17 @@ Route::get('csv/products/picked', [Csv\ProductsPickedInWarehouse::class, 'index'
 Route::get('csv/products/shipped', [Csv\ProductsShippedFromWarehouseController::class, 'index'])->name('warehouse_shipped.csv');
 Route::get('csv/boxtop/stock', [Csv\BoxTopStockController::class, 'index'])->name('boxtop-warehouse-stock.csv');
 
+Route::middleware(['web', 'auth', 'role:admin', 'twofactor'])->group(function () {
+    // Setup
+    Route::prefix('setup')->group(function () {
+        Route::get('magento', [SetupController::class, 'magento'])->name('setup.magento');
+    });
 
-// Admin Routes
-Route::prefix('admin')->middleware(['web', 'auth', 'role:admin', 'twofactor'])->group(function () {
-    // Settings
-    Route::prefix('settings')->group(function () {
-        Route::view('modules/magento-api', 'settings/magento-api')->name('settings.modules.magento-api');
+    // Admin Routes
+    Route::prefix('admin')->group(function () {
+        // Settings
+        Route::prefix('settings')->group(function () {
+            Route::view('modules/magento-api', 'settings/magento-api')->name('settings.modules.magento-api');
+        });
     });
 });
