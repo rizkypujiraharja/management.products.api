@@ -7,6 +7,7 @@ use App\Http\Resources\MagentoConnectionResource;
 use App\Modules\MagentoApi\src\Http\Requests\MagentoApiConnectionDestroyRequest;
 use App\Modules\MagentoApi\src\Http\Requests\MagentoApiConnectionIndexRequest;
 use App\Modules\MagentoApi\src\Http\Requests\MagentoApiConnectionStoreRequest;
+use App\Modules\MagentoApi\src\Http\Requests\MagentoApiConnectionUpdateRequest;
 use App\Modules\MagentoApi\src\Models\MagentoConnection;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Spatie\Tags\Tag;
@@ -21,23 +22,36 @@ class MagentoApiConnectionController extends Controller
 
     public function store(MagentoApiConnectionStoreRequest $request): MagentoConnectionResource
     {
-        $config = new MagentoConnection();
-        $config->fill($request->only($config->getFillable()));
-        $config->save();
+        $connection = new MagentoConnection();
+        $connection->fill($request->only($connection->getFillable()));
+        $connection->save();
 
         if($request->tag) {
             $tag = Tag::findOrCreate($request->tag);
-            $config->attachTag($tag);
-            $config->inventory_source_warehouse_tag_id = $tag->id;
-            $config->save();
+            $connection->attachTag($tag);
+            $connection->inventory_source_warehouse_tag_id = $tag->id;
+            $connection->save();
         }
 
-        return new MagentoConnectionResource($config);
+        return new MagentoConnectionResource($connection);
     }
 
-    public function destroy(MagentoApiConnectionDestroyRequest $request, $id)
+    public function update(MagentoApiConnectionUpdateRequest $request, MagentoConnection $connection)
     {
-        $connection = MagentoConnection::findOrFail($id);
+        $connection->fill($request->validated());
+
+        if ($request->tag) {
+            $tag = Tag::findOrCreate($request->tag);
+            $connection->inventory_source_warehouse_tag_id = $tag->id;
+
+            $connection->tags()->sync([$tag->id]);
+        }
+
+        return new MagentoConnectionResource($connection);
+    }
+
+    public function destroy(MagentoApiConnectionDestroyRequest $request, MagentoConnection $connection)
+    {
         $connection->delete();
         return response('ok');
     }

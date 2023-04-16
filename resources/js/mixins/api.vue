@@ -363,6 +363,7 @@ export default {
 
             apiGetMagentoApiConnections: function (params) { return axios.get('/api/modules/magento-api/connections/', {params}) },
             apiPostMagentoApiConnection: function (params) { return axios.post(`/api/modules/magento-api/connections/`, params) },
+            apiPutMagentoApiConnection: function (id, params) { return axios.put(`/api/modules/magento-api/connections/${id}`, params) },
             apiDeleteMagentoApiConnection: function (id) { return axios.delete(`/api/modules/magento-api/connections/${id}`) },
 
             apiGetInventoryReservationsConfig: function () { return axios.get('/api/modules/inventory-reservations/configuration') },
