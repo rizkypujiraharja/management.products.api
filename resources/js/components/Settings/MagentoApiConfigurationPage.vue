@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="connection in connections" :key="connection/id">
+                        <tr v-for="connection in connections" :key="connection.id">
                             <td>{{ connection.base_url }}</td>
                             <td>{{ connection.magento_store_id }}</td>
                             <td>
@@ -32,7 +32,7 @@
                                     <a class="badge text-uppercase" :key="tag.id"> {{ tag.name }} </a>
                                 </template>
                             </td>
-                            <td>{{ connection.warehouse.name }}</td>
+                            <td>{{ connection.warehouse?.name }}</td>
                             <td>
                                 <a @click="confirmDelete(connection.id)" class="action-link text-danger">Delete</a>
                             </td>

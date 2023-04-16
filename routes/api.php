@@ -81,5 +81,4 @@ Route::group(['prefix' => 'modules', 'as' => 'api.modules.'], function () {
     Route::apiResource('rms_api/connections', Api\Modules\Rmsapi\RmsapiConnectionController::class, ['as' => 'rmsapi'])->only(['index', 'store', 'destroy']);
     Route::apiResource('webhooks/subscriptions', Api\Modules\Webhooks\SubscriptionController::class, ['as' => 'webhooks'])->only(['index', 'store']);
     Route::apiResource('magento-api/connections', Api\Modules\MagentoApi\MagentoApiConnectionController::class, ['as' => 'magento-api'])->only(['index', 'store', 'destroy']);
-    Route::post('magento-api/connections/setup', [Api\Modules\MagentoApi\MagentoApiConnectionController::class, 'setup'])->name('magento-api.connections.setup');
 });
