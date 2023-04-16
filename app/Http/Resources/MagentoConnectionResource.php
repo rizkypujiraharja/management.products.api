@@ -24,6 +24,7 @@ class MagentoConnectionResource extends JsonResource
             'deleted_at' => $this->deleted_at,
             'updated_at' => $this->updated_at,
             'created_at' => $this->created_at,
+            'access_token' => $this->access_token_encrypted,
         ];
     }
 }
