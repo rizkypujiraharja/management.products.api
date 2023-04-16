@@ -47,6 +47,19 @@
                             </ValidationProvider>
                         </div>
 
+                        <div class="form-group">
+                            <label class="form-label" for="access_token">Access Token</label>
+                            <ValidationProvider vid="access_token_encrypted" name="access_token_encrypted" v-slot="{ errors }">
+                                <input v-model="config.access_token_encrypted" :class="{
+                                    'form-control': true,
+                                    'is-invalid': errors.length > 0,
+                                }" id="create-access_token_encrypted" type="text" required>
+                                <div class="invalid-feedback">
+                                    {{ errors[0] }}
+                                </div>
+                            </ValidationProvider>
+                        </div>
+
                         <button class="btn btn-primary btn-block" type="submit">Save</button>
                         <a class="btn btn-light btn-block" href="/dashboard">Skip</a>
                     </form>
@@ -71,7 +84,9 @@ export default {
         return {
             config: {
                 base_url: location.protocol + '//' + location.host,
-                setup: true
+                setup: true,
+                store_id: null,
+                access_token_encrypted: null
             },
         };
     },
@@ -79,7 +94,7 @@ export default {
     methods: {
         submit() {
             this.showLoading();
-            this.apiSetupMagentoApiConnection({...this.config})
+            this.apiPostMagentoApiConnection({...this.config})
                 .then(({ data }) => {
                     this.$snotify.success('Connection created.');
                     window.location.href = '/';
