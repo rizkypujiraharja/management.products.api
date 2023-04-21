@@ -39,13 +39,13 @@ class MagentoApiConnectionController extends Controller
     public function update(MagentoApiConnectionUpdateRequest $request, MagentoConnection $connection)
     {
         $connection->fill($request->validated());
-
         if ($request->tag) {
             $tag = Tag::findOrCreate($request->tag);
             $connection->inventory_source_warehouse_tag_id = $tag->id;
 
             $connection->tags()->sync([$tag->id]);
         }
+        $connection->save();
 
         return new MagentoConnectionResource($connection);
     }
