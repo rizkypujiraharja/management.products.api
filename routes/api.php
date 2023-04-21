@@ -80,6 +80,6 @@ Route::group(['prefix' => 'modules', 'as' => 'api.modules.'], function () {
     Route::apiResource('printnode/printjobs', Api\Modules\Printnode\PrintJobController::class, ['as' => 'printnode'])->only(['store']);
     Route::apiResource('rms_api/connections', Api\Modules\Rmsapi\RmsapiConnectionController::class, ['as' => 'rmsapi'])->only(['index', 'store', 'destroy']);
     Route::apiResource('webhooks/subscriptions', Api\Modules\Webhooks\SubscriptionController::class, ['as' => 'webhooks'])->only(['index', 'store']);
-    Route::apiResource('magento-api/connections', Api\Modules\MagentoApi\MagentoApiConnectionController::class, ['as' => 'magento-api'])->only(['index', 'store', 'destroy']);
+    Route::apiResource('magento-api/connections', Api\Modules\MagentoApi\MagentoApiConnectionController::class, ['as' => 'magento-api'])->except(['show']);
     Route::apiResource('inventory-reservations/configuration', Api\Modules\InventoryReservation\InventoryReservationController::class, ['as' => 'inventory-reservations'])->only(['index', 'update']);
 });
